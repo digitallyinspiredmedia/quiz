@@ -3,9 +3,9 @@
 
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-	
+
 	<title>PHP Quiz</title>
-	
+
 	<link rel="stylesheet" type="text/css" href="css/style.css" />
 </head>
 
@@ -14,9 +14,9 @@
 	<div id="page-wrap">
 
 		<h1>Final Quiz to find what is your car</h1>
-		
+
         <?php
-            
+
             $answer1 = $_POST['question-1-answers'];
             $answer2 = $_POST['question-2-answers'];
             $answer3 = $_POST['question-3-answers'];
@@ -25,115 +25,134 @@
             $answer6 = $_POST['question-6-answers'];
             $answer7 = $_POST['question-7-answers'];
             $answer8 = $_POST['question-8-answers'];
-        
+
             $score = 0;
-            
+
     if ($answer1 == "A") {
 	 	$score1 =0; }
-	 elseif ($answer1 == "B"){ 
+	 elseif ($answer1 == "B"){
 	 	$score1 =0; }
-	 elseif ($answer1 == "C"){ 
+	 elseif ($answer1 == "C"){
 	 	$score1 =0; }
-	 elseif ($answer1 == "D"){ 
-	  	$score1=0; 
+	 elseif ($answer1 == "D"){
+	  	$score1=0;
 	}
-	
+
 	if ($answer2 == "A") {
 	 	$score2 =0; }
-	 elseif ($answer2 == "B"){ 
+	 elseif ($answer2 == "B"){
 	 	$score2 =0; }
-	 elseif ($answer2 == "C"){ 
+	 elseif ($answer2 == "C"){
 	 	$score2 =0; }
-	 elseif ($answer2 == "D"){ 
-	  	$score2=0; 
+	 elseif ($answer2 == "D"){
+	  	$score2=0;
 	}
 
 	if ($answer3 == "A") {
 	 	$score3 =0; }
-	 elseif ($answer3 == "B"){ 
+	 elseif ($answer3 == "B"){
 	 	$score3 =0; }
-	 elseif ($answer3 == "C"){ 
+	 elseif ($answer3 == "C"){
 	 	$score3 =0; }
-	 elseif ($answer3 == "D"){ 
-	  	$score3=0; 
+	 elseif ($answer3 == "D"){
+	  	$score3=0;
 	}
 	if ($answer4 == "A") {
 	 	$score4 = 2; }
-	 elseif ($answer4 == "B"){ 
+	 elseif ($answer4 == "B"){
 	 	$score4 = 3; }
-	 elseif ($answer4 == "C"){ 
+	 elseif ($answer4 == "C"){
 	 	$score4 =4; }
-	 elseif ($answer4 == "D"){ 
-	  	$score4= 1; 
+	 elseif ($answer4 == "D"){
+	  	$score4= 1;
 	}
 	if ($answer5 == "A") {
 	 	$score5 = 3; }
-	 elseif ($answer5 == "B"){ 
+	 elseif ($answer5 == "B"){
 	 	$score5 = 2; }
-	 elseif ($answer5 == "C"){ 
+	 elseif ($answer5 == "C"){
 	 	$score5 = 1; }
-	 elseif ($answer5 == "D"){ 
-	  	$score5= 4; 
+	 elseif ($answer5 == "D"){
+	  	$score5= 4;
 	}
 	if ($answer6 == "A") {
 	 	$score6 = 2; }
-	 elseif ($answer6 == "B"){ 
+	 elseif ($answer6 == "B"){
 	 	$score6 = 4; }
-	 elseif ($answer6 == "C"){ 
+	 elseif ($answer6 == "C"){
 	 	$score6 = 3; }
-	//  elseif ($answer5 == "D"){ 
-	//   	$score6 = 1; 
+	//  elseif ($answer5 == "D"){
+	//   	$score6 = 1;
 	// }
 	if ($answer7 == "A") {
 	 	$score7 = 2; }
-	 elseif ($answer7 == "B"){ 
+	 elseif ($answer7 == "B"){
 	 	$score7 = 3; }
-	 elseif ($answer7 == "C"){ 
+	 elseif ($answer7 == "C"){
 	 	$score7 = 1; }
-	//  elseif ($answer7 == "D"){ 
-	//   	$score7=1; 
+	//  elseif ($answer7 == "D"){
+	//   	$score7=1;
 	// }
 	if ($answer8 == "A") {
 	 	$score8 = 2; }
-	 elseif ($answer8 == "B"){ 
+	 elseif ($answer8 == "B"){
 	 	$score8 = 1; }
-	 elseif ($answer8 == "C"){ 
+	 elseif ($answer8 == "C"){
 	 	$score8 = 4; }
-	//  elseif ($answer8 == "D"){ 
-	//   	$score8=1; 
+	//  elseif ($answer8 == "D"){
+	//   	$score8=1;
 	// }
 
 	$total = $score + $score1 + $score2 + $score3 + $score4 + $score5 + $score6 + $score7 + $score8;
 
 echo $total;
-
-
     if ($total <  "8") {
 		echo 'The speed ';
 	 	}
-	 elseif ($total <  "10"){ 
+	 elseif ($total <  "10"){
 	 	echo 'The ECO';
 	 	}
-	 elseif ($total <  "16"){ 
+	 elseif ($total <  "16"){
 	  	echo 'The thrill';
 	 	}
 	 elseif ($total < "30"){
 	  	echo 'The thrill seeker';
-	  	 
 	}
-
 elseif ($total <  "3"){
 	  	echo 'The crusier  seeker';
-	  	 
+
 	}
+?>
+
+<?php
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "quiz";
+
+// Create connection
+$conn = new mysqli($servername, $username, $password, $dbname);
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+$sql = "INSERT INTO MyGuests (firstname, lastname, email)
+VALUES ('$total', 'Doe', 'john@example.com')";
+
+if ($conn->query($sql) === TRUE) {
+    echo "New record created successfully";
+} else {
+    echo "Error: " . $sql . "<br>" . $conn->error;
+}
+
+$conn->close();
+?>
 
 
 
-            
-        ?>
-	
 	</div>
-	
+
 
 </body>
 
