@@ -15,18 +15,22 @@
 
 		<h1>Final Quiz to find what is your car</h1>
 
-        <?php
+      <?php
 
-            $answer1 = $_POST['question-1-answers'];
-            $answer2 = $_POST['question-2-answers'];
-            $answer3 = $_POST['question-3-answers'];
-            $answer4 = $_POST['question-4-answers'];
-            $answer5 = $_POST['question-5-answers'];
-            $answer6 = $_POST['question-6-answers'];
-            $answer7 = $_POST['question-7-answers'];
-            $answer8 = $_POST['question-8-answers'];
+					$fid = $_POST['fid'];
+					$name = $_POST['name'];
+					$email = $_POST['email'];
 
-            $score = 0;
+        $answer1 = $_POST['question-1-answers'];
+        $answer2 = $_POST['question-2-answers'];
+        $answer3 = $_POST['question-3-answers'];
+        $answer4 = $_POST['question-4-answers'];
+        $answer5 = $_POST['question-5-answers'];
+        $answer6 = $_POST['question-6-answers'];
+        $answer7 = $_POST['question-7-answers'];
+        $answer8 = $_POST['question-8-answers'];
+
+        $score = 0;
 
     if ($answer1 == "A") {
 	 	$score1 =0; }
@@ -102,58 +106,40 @@
 	//  elseif ($answer8 == "D"){
 	//   	$score8=1;
 	// }
-
 	$total = $score + $score1 + $score2 + $score3 + $score4 + $score5 + $score6 + $score7 + $score8;
-
-echo $total;
     if ($total <  "8") {
-		echo 'The speed ';
+		$type='The speed ';
 	 	}
 	 elseif ($total <  "10"){
-	 	echo 'The ECO';
+	 	$type= 'The ECO';
 	 	}
 	 elseif ($total <  "16"){
-	  	echo 'The thrill';
+	  	$type= 'The thrill';
 	 	}
 	 elseif ($total < "30"){
-	  	echo 'The thrill seeker';
+	  	$type= 'The thrill seeker';
 	}
 elseif ($total <  "3"){
-	  	echo 'The crusier  seeker';
+	  	$type= 'The crusier  seeker';
+	}
+//echo $total .'&nbsp;by&nbsp;'. $name .'&nbsp;,emailid:'. $email .'user id: '. $fid.' and you are&nbsp;' .$type. ' &nbsp;driver / rider :)' ;
 
+require 'dbconfig.php';
+
+ $check = mysql_query("select * from Result where Fuid='$fid'")or die(mysql_error());
+	$duplicate=mysql_num_rows($check);
+	if($duplicate==0) { // if new user . Insert a new record
+	$query = "INSERT INTO Result (Fuid,Ffname,Femail,type,total) VALUES ('$fid','$name','$email','$type','$total')";
+	mysql_query($query);
+	echo'The name '.$name.' is update in table';
+
+	} else {   // If Returned user . update the user record
+	//$query = "UPDATE Result SET Ffname='$name', Femail='$email' , total='$total', type='$type' where Fuid='$fid'";
+	echo'The name '.$name.' is already present in the user table';
 	}
 ?>
-
-<?php
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "quiz";
-
-// Create connection
-$conn = new mysqli($servername, $username, $password, $dbname);
-// Check connection
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
-
-$sql = "INSERT INTO MyGuests (firstname, lastname, email)
-VALUES ('$total', 'Doe', 'john@example.com')";
-
-if ($conn->query($sql) === TRUE) {
-    echo "New record created successfully";
-} else {
-    echo "Error: " . $sql . "<br>" . $conn->error;
-}
-
-$conn->close();
-?>
-
-
+<div><a href="logout.php">Logout</a></div>
 
 	</div>
-
-
 </body>
-
 </html>
