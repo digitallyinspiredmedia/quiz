@@ -1,0 +1,47 @@
+<style>
+.item{padding:30vh 0; max-width:800px; margin:0 auto;}
+body{
+  overflow: hidden;
+}
+</style>
+<div class="item">
+  <h1>Some kinda question goes here:</h1>
+  <input name="days" id="3days" type="radio" />
+  <label for="3days">3 Days</label>
+  <input name="days" id="7days" type="radio" />
+<label for="7days">7 Days</label>
+</div>
+
+<div class="item">
+  <h1>Some kinda question goes here:</h1>
+  <input name="yesno" id="yes" type="radio" />
+  <label for="yes">Yes</label>
+  <input name="yesno" id="no" type="radio" />
+<label for="no">No</label>
+</div>
+
+<div class="item">
+  <h1>Some kinda question goes here:</h1>
+  <input name="days2" id="3days2" type="radio" />
+  <label for="3days2">3 Days</label>
+  <input name="days2" id="7days2" type="radio" />
+<label for="7days2">7 Days</label>
+</div>
+
+<div class="item">
+  <h1>Some kinda question goes here:</h1>
+  <input name="yesno2" id="yes2" type="radio" />
+  <label for="yes2">Yes</label>
+  <input name="yesno2" id="no2" type="radio" />
+<label for="no2">No</label>
+</div>
+
+<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js" > </script>
+<script>
+$( "input" ).change(function() {
+  var $this = $(this);
+  $('html, body').animate({
+    scrollTop: $($this).parent().next().offset().top
+ }, 400);
+});
+</script>
