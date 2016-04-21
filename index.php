@@ -5,12 +5,37 @@ session_start();
 <!doctype html>
 <html xmlns:fb="http://www.facebook.com/2008/fbml">
   <head>
-    <title>Login with Facebook</title>
-<link href="http://www.bootstrapcdn.com/twitter-bootstrap/2.2.2/css/bootstrap-combined.min.css" rel="stylesheet">
+    <title>Quiz App</title>
+
+    <style>
+    body{
+     font: 400 30px/40px 'Montserrat', sans-serif;
+    }
+    h1{
+     font: 700 40px/60px 'Montserrat', sans-serif;
+     padding-top: 80px;
+    }
+    #page-wrap{
+     position: relative;
+    }
+    .item{
+     margin: 0 auto;
+     padding: 0 40vh;
+    }
+    .fromgroup{
+     display: block;
+     padding: 10px;
+    }
+    input{
+     display: inline-block;
+     padding: 10px;
+    }
+    </style>
+
  </head>
   <body>
   <?php if ($_SESSION['FBID']): ?>      <!--  After user login  -->
-<div class="container">
+<div class="container" style="display: none;">
 <div class="hero-unit">
   <h1>Hello <?php echo $_SESSION['USERNAME']; ?></h1>
   <p>Welcome to "facebook login" tutorial</p>
@@ -27,7 +52,8 @@ session_start();
 <li><?php echo $_SESSION['EMAIL']; ?></li>
 <div><a href="logout.php">Logout</a></div>
 </ul></div>
-
+</div>
+<div class="container">
 <?php
   include 'test.php';
  ?>
@@ -43,5 +69,36 @@ session_start();
 	  </div>
       </div>
     <?php endif ?>
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js" > </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/scrollify/0.1.14/jquery.scrollify.min.js" > </script>
+    <script>
+    $( "input" ).change(function() {
+      var $this = $(this);
+      $('html, body').animate({
+        scrollTop: $($this).parent().next().offset().top
+     }, 400);
+    });
+    $(function() {
+    					$.scrollify({
+    						section : ".item",
+          scrollbars: false
+    					});
+    				});
+        WebFontConfig = {
+        google: { families: [ 'Montserrat:400,700:latin' ] }
+      };
+      (function() {
+        var wf = document.createElement('script');
+        wf.src = 'https://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
+        wf.type = 'text/javascript';
+        wf.async = 'true';
+        var s = document.getElementsByTagName('script')[0];
+        s.parentNode.insertBefore(wf, s);
+      })();
+    </script>
+
+
   </body>
 </html>
