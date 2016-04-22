@@ -53,22 +53,10 @@
 <!-- question 3 -->
 <div class="item">
   <h1> How much would you pay for your ideal car?  </h1>
-<div class="fromgroup">
-  <input type="radio" name="question-3-answers" id="question-3-answers-A" value="A" />
-  <label for="question-3-answers-A">2.5 - 5 L</label>
-</div>
-<div class="fromgroup">
-  <input type="radio" name="question-3-answers" id="question-3-answers-B" value="B" />
-  <label for="question-3-answers-B">5 - 8 L</label>
-</div>
-<div class="fromgroup">
-  <input type="radio" name="question-3-answers" id="question-3-answers-C" value="C" />
-  <label for="question-3-answers-C">8 - 12 L</label>
-</div>
-<div class="fromgroup">
-  <input type="radio" name="question-3-answers" id="question-3-answers-D" value="D" />
-  <label for="question-3-answers-D">13 L</label>
-</div>
+  <div class="fromgroup  question-3-answers-A"> </div>
+  <div class="fromgroup  question-3-answers-B"> </div>
+  <div class="fromgroup  question-3-answers-C"> </div>
+  <div class="fromgroup  question-3-answers-D"> </div>
 </div>
 <!-- question 3 end -->
 
@@ -177,3 +165,37 @@
 </div>
 
 <!-- Quiz code begin end -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js" > </script>
+<script>
+
+jQuery(document).ready(function() {
+ $('#question-2-answers-A, #question-2-answers-B, #question-2-answers-C, #question-2-answers-D').on('click', function(){
+    $('.question-3-answers-A') .html('');
+    $('.question-3-answers-B') .html('');
+    $('.question-3-answers-C') .html('');
+    $('.question-3-answers-D') .html('');
+  });
+
+ $('#question-2-answers-A').on('click', function(){
+    $('.question-3-answers-A') .html('<div class="fromgroup"><input type="radio" name="question-3-answers" id="question-3-answers-A" value="A"/><label for="question-3-answers-A">4.9 Lakh</label></div><div class="fromgroup"><input type="radio" name="question-3-answers" id="question-3-answers-B" value="B"/><label for="question-3-answers-B">5.1 Lakh</label></div><div class="fromgroup"><input type="radio" name="question-3-answers" id="question-3-answers-C" value="C"/><label for="question-3-answers-C">5.6 Lakh</label></div><div class="fromgroup"><input type="radio" name="question-3-answers" id="question-3-answers-D" value="D"/><label for="question-3-answers-D">6.3 Lakh</label></div>');
+    $('.question-3-answers-A').fadeIn(600);
+    $('.question-3-answers-A').addClass('line2');
+  });
+ $('#question-2-answers-B').on('click', function(){
+     $('.question-3-answers-B') .html('<div class="fromgroup"><input type="radio" name="question-3-answers" id="question-3-answers-A" value="A"/><label for="question-3-answers-A">2.1 - 3.0 Lakh</label></div><div class="fromgroup"><input type="radio" name="question-3-answers" id="question-3-answers-B" value="B"/><label for="question-3-answers-B">2.6 - 3.8 Lakh</label></div><div class="fromgroup"><input type="radio" name="question-3-answers" id="question-3-answers-C" value="C"/><label for="question-3-answers-C">2.6 - 3.7 Lakh</label></div><div class="fromgroup"><input type="radio" name="question-3-answers" id="question-3-answers-D" value="D"/><label for="question-3-answers-D">3.2 - 5.5 Lakh</label></div>');
+     $('.question-3-answers-B').fadeIn(600);
+     $('.question-3-answers-B').addClass('line2');
+  });
+ $('#question-2-answers-C').on('click', function(){
+     $('.question-3-answers-C') .html('<div class="fromgroup"><input type="radio" name="question-3-answers" id="question-3-answers-A" value="A"/><label for="question-3-answers-A">4.6 - 7.1 Lakh</label></div><div class="fromgroup"><input type="radio" name="question-3-answers" id="question-3-answers-B" value="B"/><label for="question-3-answers-B">8.5 - 13.6 Lakh</label></div><div class="fromgroup"><input type="radio" name="question-3-answers" id="question-3-answers-C" value="C"/><label for="question-3-answers-C">10.0 - 13.8 Lakh</label></div><div class="fromgroup"><input type="radio" name="question-3-answers" id="question-3-answers-D" value="D"/><label for="question-3-answers-D">23.5 - 27.7 Lakh</label></div>');
+     $('.question-3-answers-C').fadeIn(600);
+     $('.question-3-answers-C').addClass('line2');
+  });
+ $('#question-2-answers-D').on('click', function(){
+     $('.question-3-answers-D') .html('<div class="fromgroup"><input type="radio" name="question-3-answers" id="question-3-answers-A" value="A"/><label for="question-3-answers-A">3.8 - 4.9 Lakh</label></div><div class="fromgroup"><input type="radio" name="question-3-answers" id="question-3-answers-B" value="B"/><label for="question-3-answers-B">6.2 - 9.3 Lakh</label></div><div class="fromgroup"><input type="radio" name="question-3-answers" id="question-3-answers-C" value="C"/><label for="question-3-answers-C">8.3 - 12.3 Lakh</label></div><div class="fromgroup"><input type="radio" name="question-3-answers" id="question-3-answers-D" value="D"/><label for="question-3-answers-D">28.8 - 30.0 Lakh</label></div>');
+     $('.question-3-answers-C').fadeIn(600);
+     $('.question-3-answers-C').addClass('line2');
+  });
+  });
+
+</script>
