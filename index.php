@@ -30,6 +30,17 @@ session_start();
      display: inline-block;
      padding: 10px;
     }
+    @media (max-width: 1000px) {
+     .item{
+      padding: 20px;
+     }
+    }
+@media (max-width: 600px) {
+ .item{
+  padding: 20px;
+ }
+}
+
     </style>
 
  </head>
