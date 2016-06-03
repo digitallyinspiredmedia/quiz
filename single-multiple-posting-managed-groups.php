@@ -1,5 +1,6 @@
 <?php
 session_start();
+
 require_once __DIR__ . '/src/Facebook/autoload.php';
 
 $fb = new Facebook\Facebook([
@@ -10,7 +11,7 @@ $fb = new Facebook\Facebook([
 
 $helper = $fb->getCanvasHelper();
 
-$permissions = ['email']; // optionnal
+$permissions = ['user_managed_groups', 'publish_actions']; // optionnal
 
 try {
 	if (isset($_SESSION['facebook_access_token'])) {
@@ -29,7 +30,6 @@ try {
  }
 
 if (isset($accessToken)) {
-
 	if (isset($_SESSION['facebook_access_token'])) {
 		$fb->setDefaultAccessToken($_SESSION['facebook_access_token']);
 	} else {
@@ -46,6 +46,12 @@ if (isset($accessToken)) {
 		$fb->setDefaultAccessToken($_SESSION['facebook_access_token']);
 	}
 
+	// redirect user back to app when page receives $_GET['code'] variable
+	if (isset($_GET['code'])) {
+		echo "<script>window.top.location.href='https://apps.facebook.com/APP_NAMESPACE';</script>";
+		exit;
+	}
+	
 	// validating the access token
 	try {
 		$request = $fb->get('/me');
@@ -64,32 +70,64 @@ if (isset($accessToken)) {
 		exit;
 	}
 
-	// getting profile picture of the user
+	// get list of groups managed by user
 	try {
-		$requestPicture = $fb->get('/me/picture?redirect=false&height=300'); //getting user picture
-		$requestProfile = $fb->get('/me'); // getting basic info
-		$picture = $requestPicture->getGraphUser();
-		$profile = $requestProfile->getGraphUser();
+		$requestGroups = $fb->get('/me/groups');
+		$groups = $requestGroups->getGraphEdge()->asArray();
 	} catch(Facebook\Exceptions\FacebookResponseException $e) {
 		// When Graph returns an error
 		echo 'Graph returned an error: ' . $e->getMessage();
-		exit;
+  		exit;
 	} catch(Facebook\Exceptions\FacebookSDKException $e) {
 		// When validation fails or other local issues
 		echo 'Facebook SDK returned an error: ' . $e->getMessage();
 		exit;
 	}
-	
-	// showing picture on the screen
-	echo "<img src='".$picture['url']."'/>";
 
-	// saving picture
-	$img = __DIR__.'/'.$profile['id'].'.jpg';
-	file_put_contents($img, file_get_contents($picture['url']));
+	// post in single group managed by user
+	foreach ($groups as $key) {
+		if ($key['name'] == 'Funny Demons') {
+			$groupId = $key['id'];
+		}
+	}
+
+	try {
+		$requestPost = $fb->post('/' . $groupId . '/feed', array('message' => 'this message field must come from user-end as Facebook strictly prohibits the pre-filled message field'));
+		$post = $requestPost->getGraphNode()->asArray();
+	} catch(Facebook\Exceptions\FacebookResponseException $e) {
+		// When Graph returns an error
+		echo 'Graph returned an error: ' . $e->getMessage();
+  		exit;
+	} catch(Facebook\Exceptions\FacebookSDKException $e) {
+		// When validation fails or other local issues
+		echo 'Facebook SDK returned an error: ' . $e->getMessage();
+		exit;
+	}
+
+	// get response of single posting
+	print_r($post);
+
+	// post in all groups managed by user
+	foreach ($groups as $key) {
+		try {
+			$requestMultiPost = $fb->post('/' . $key['id'] . '/feed', array('message' => 'this message field must come from user-end as Facebook strictly prohibitsf the pre-filled message field'));
+			$multiPost = $requestMultiPost->getGraphNode()->asArray();
+		} catch(Facebook\Exceptions\FacebookResponseException $e) {
+			// When Graph returns an error
+			echo 'Graph returned an error: ' . $e->getMessage();
+	  		exit;
+		} catch(Facebook\Exceptions\FacebookSDKException $e) {
+			// When validation fails or other local issues
+			echo 'Facebook SDK returned an error: ' . $e->getMessage();
+			exit;
+		}
+	}
 	
+	// get response for multiple posting
+	print_r($multiPost);
   	// Now you can redirect to another page and use the access token from $_SESSION['facebook_access_token']
 } else {
 	$helper = $fb->getRedirectLoginHelper();
-	$loginUrl = $helper->getLoginUrl('https://apps.facebook.com/APP_NAMESPACE/');
+	$loginUrl = $helper->getLoginUrl('https://apps.facebook.com/APP_NAMESPACE/', $permissions);
 	echo "<script>window.top.location.href='".$loginUrl."'</script>";
 }

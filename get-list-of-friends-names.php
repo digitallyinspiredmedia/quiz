@@ -1,16 +1,11 @@
 <?php
 session_start();
 require_once __DIR__ . '/src/Facebook/autoload.php';
-
-$fb = new Facebook\Facebook([
-  'app_id' => 'APP_ID',
-  'app_secret' => 'APP_SECRET',
-  'default_graph_version' => 'v2.4',
-]);
+require_once __DIR__ . '/app-id.php';
 
 $helper = $fb->getCanvasHelper();
 
-$permissions = ['email']; // optionnal
+$permissions = ['user_friends']; // optionnal
 
 try {
 	if (isset($_SESSION['facebook_access_token'])) {
@@ -29,7 +24,6 @@ try {
  }
 
 if (isset($accessToken)) {
-
 	if (isset($_SESSION['facebook_access_token'])) {
 		$fb->setDefaultAccessToken($_SESSION['facebook_access_token']);
 	} else {
@@ -56,20 +50,18 @@ if (isset($accessToken)) {
 			$helper = $fb->getRedirectLoginHelper();
 			$loginUrl = $helper->getLoginUrl('https://apps.facebook.com/APP_NAMESPACE/', $permissions);
 			echo "<script>window.top.location.href='".$loginUrl."'</script>";
-			exit;
 		}
+		exit;
 	} catch(Facebook\Exceptions\FacebookSDKException $e) {
 		// When validation fails or other local issues
 		echo 'Facebook SDK returned an error: ' . $e->getMessage();
 		exit;
 	}
 
-	// getting profile picture of the user
+	// get list of friends' names
 	try {
-		$requestPicture = $fb->get('/me/picture?redirect=false&height=300'); //getting user picture
-		$requestProfile = $fb->get('/me'); // getting basic info
-		$picture = $requestPicture->getGraphUser();
-		$profile = $requestProfile->getGraphUser();
+		$requestFriends = $fb->get('/me/taggable_friends?fields=name&limit=100');
+		$friends = $requestFriends->getGraphEdge();
 	} catch(Facebook\Exceptions\FacebookResponseException $e) {
 		// When Graph returns an error
 		echo 'Graph returned an error: ' . $e->getMessage();
@@ -79,17 +71,31 @@ if (isset($accessToken)) {
 		echo 'Facebook SDK returned an error: ' . $e->getMessage();
 		exit;
 	}
-	
-	// showing picture on the screen
-	echo "<img src='".$picture['url']."'/>";
 
-	// saving picture
-	$img = __DIR__.'/'.$profile['id'].'.jpg';
-	file_put_contents($img, file_get_contents($picture['url']));
-	
+	// if have more friends than 100 as we defined the limit above on line no. 68
+	if ($fb->next($friends)) {
+		$allFriends = array();
+		$friendsArray = $friends->asArray();
+		$allFriends = array_merge($friendsArray, $allFriends);
+		while ($friends = $fb->next($friends)) {
+			$friendsArray = $friends->asArray();
+			$allFriends = array_merge($friendsArray, $allFriends);
+		}
+		foreach ($allFriends as $key) {
+			echo $key['name'] . "<br>";
+		}
+		echo count($allfriends);
+	} else {
+		$allFriends = $friends->asArray();
+		$totalFriends = count($allFriends);
+		foreach ($allFriends as $key) {
+			echo $key['name'] . "<br>";
+		}
+	}
+
   	// Now you can redirect to another page and use the access token from $_SESSION['facebook_access_token']
 } else {
 	$helper = $fb->getRedirectLoginHelper();
-	$loginUrl = $helper->getLoginUrl('https://apps.facebook.com/APP_NAMESPACE/');
+	$loginUrl = $helper->getLoginUrl('https://apps.facebook.com/APP_NAMESPACE/', $permissions);
 	echo "<script>window.top.location.href='".$loginUrl."'</script>";
 }
