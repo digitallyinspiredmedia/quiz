@@ -50,7 +50,7 @@ if (isset($accessToken)) {
 
 	// redirect the user back to the same page if it has "code" GET variable
 	if (isset($_GET['code'])) {
-		header('Location: ./');
+		header('Location: get-user-profile-picture.php');
 	}
 
 	// getting basic info about user
@@ -62,7 +62,7 @@ if (isset($accessToken)) {
 		echo 'Graph returned an error: ' . $e->getMessage();
 		session_destroy();
 		// redirecting user back to app login page
-		header("Location: ./");
+		header("Location: get-user-profile-picture.php");
 		exit;
 	} catch(Facebook\Exceptions\FacebookSDKException $e) {
 		// When validation fails or other local issues
