@@ -95,6 +95,6 @@ if (isset($accessToken)) {
   	// Now you can redirect to another page and use the access token from $_SESSION['facebook_access_token']
 } else {
 	$helper = $fb->getRedirectLoginHelper();
-	$loginUrl = $helper->getLoginUrl('https://apps.facebook.com/APP_NAMESPACE/');
+	$loginUrl = $helper->getLoginUrl('https://cavin.herokuapp.com');
 	echo "<script>window.top.location.href='".$loginUrl."'</script>";
 }
