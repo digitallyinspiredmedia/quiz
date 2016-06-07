@@ -6,7 +6,7 @@ require_once __DIR__ . '/app-id.php';
 $helper = $fb->getRedirectLoginHelper();
 
 // app directory could be anything but website URL must match the URL given in the developers.facebook.com/apps
-define('APP_URL', 'http://sohaibilyas.com/fbapp/');
+define('APP_URL', 'https://cavin.herokuapp.com/');
 
 $permissions = ['user_posts', 'user_photos']; // optional
 	
