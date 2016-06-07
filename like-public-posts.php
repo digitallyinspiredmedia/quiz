@@ -1,17 +1,13 @@
 <?php
 session_start();
 require_once __DIR__ . '/src/Facebook/autoload.php';
+require_once __DIR__ . '/app-id.php';
 
-$fb = new Facebook\Facebook([
-  'app_id' => 'APP_ID',
-  'app_secret' => 'APP_SECRET',
-  'default_graph_version' => 'v2.5'
-  ]);
 
 $helper = $fb->getRedirectLoginHelper();
 
 // app directory could be anything but website URL must match the URL given in the developers.facebook.com/apps
-define('APP_URL', 'http://sohaibilyas.com/APP_DIR/');
+define('APP_URL', 'http://localhost/cavin/v1');
 
 $permissions = ['publish_actions']; // optional
 	
